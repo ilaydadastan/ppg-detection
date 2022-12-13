@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 cap = cv2.VideoCapture('ppg_detection_video.MOV')
 
 cv2.namedWindow('Frame', cv2.WINDOW_NORMAL)
@@ -11,7 +10,8 @@ cv2.namedWindow('Frame', cv2.WINDOW_NORMAL)
 p1, p2 = None, None
 state = 0
 
-def on_mouse(event, x, y):
+
+def on_mouse(event, x, y, flags, userdata):
     global state, p1, p2
 
     # Left click
@@ -41,15 +41,15 @@ while cap.isOpened():
     if state > 1 and frame is not None:
         cv2.rectangle(frame, p1, p2, (255, 0, 0), 2)
         cropped_image = frame[p1[1]:p2[1], p1[0]:p2[0]]
-        #cv2.imshow('Crop', cropped_image)
+        # cv2.imshow('Crop', cropped_image)
         average = np.average(cropped_image)
         average_array.append(average)
-        count = count+1
+        count = count + 1
 
     if frame is not None:
         cv2.imshow('Frame', frame)
 
-    key = cv2.waitKey(50) #millisecond
+    key = cv2.waitKey(50)  # millisecond
     # If ESCAPE key pressed, stop
     if key == 27:
         cap.release()
@@ -59,9 +59,3 @@ x_axis = np.array(range(count))
 plt.plot(x_axis, y_axis)
 plt.figure()
 plt.show()
-
-
-
-
-
-
