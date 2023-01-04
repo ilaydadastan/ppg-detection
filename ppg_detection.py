@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import heartpy as hp
+from scipy.signal import find_peaks
 
 
 cap = cv2.VideoCapture('ppg_detection_video.MOV')
@@ -54,8 +56,21 @@ while cap.isOpened():
     if key == 27:
         cap.release()
 
+
+
 y_axis = np.array(average_array)
 x_axis = np.array(range(count))
+
+peaks = find_peaks(y_axis, height=1, threshold=1, distance=1)
+height = peaks[1]['peak_heights']
+peak_pos = x_axis[peaks[0]]
+
+
 plt.plot(x_axis, y_axis)
 plt.figure()
 plt.show()
+
+# (numberofpeaks/sn)*60 = bpm
+
+
+
