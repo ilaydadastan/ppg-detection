@@ -66,6 +66,11 @@ while cap.isOpened():
     if key == 27:
         cap.release()
 
+    b, g, r = cv2.split(frame)
+print(b)
+print(g)
+print(r)
+
 y_axis = np.array(average_array)
 x_axis = np.array(range(count))
 peaks = find_peaks_cwt(y_axis, np.ones(y_axis.shape)*2)-1
