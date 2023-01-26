@@ -36,3 +36,13 @@ PPG graph image if we shoot a still camera and a still video;
 ---
 ### BEAT PER MINUTE CALCULATION
 According to y_axis, the peaks in the graph were found.
+
+Peaks are indicated by x. 
+- Beat per minute = (len(peaks)/video_duration)*60
+
+The graphic title says beat per minute.
+
+The current time date has also been added to the x_axis line.
+
+<img width="600" alt="Screenshot 2023-01-27 at 00 56 15" src="https://user-images.githubusercontent.com/43909097/214969373-911117b7-c8c3-47f3-8401-a4bfaa23db49.png">
+
