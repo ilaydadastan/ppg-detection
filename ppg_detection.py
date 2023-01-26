@@ -67,9 +67,10 @@ while cap.isOpened():
         cap.release()
 
     b, g, r = cv2.split(frame)
-print(b)
-print(g)
-print(r)
+    print(b)
+    print(g)
+    print(r)
+    print("-----------------")
 
 y_axis = np.array(average_array)
 x_axis = np.array(range(count))

@@ -32,3 +32,7 @@ In this project, The changes of the pixels on the video were calculated and a ph
 PPG graph image if we shoot a still camera and a still video;
 
 <img width="366" alt="Screenshot 2022-12-20 at 16 04 54" src="https://user-images.githubusercontent.com/43909097/208686017-638ad4cf-3959-4ff4-a801-5b4966d44dce.png">
+
+---
+### BEAT PER MINUTE CALCULATION
+According to y_axis, the peaks in the graph were found.
