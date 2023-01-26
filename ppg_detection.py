@@ -1,8 +1,14 @@
+import datetime
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import heartpy as hp
 from scipy.signal import find_peaks
+import pandas as pd
+import plotly.graph_objects as go
+from scipy.signal import find_peaks_cwt
+
 
 
 cap = cv2.VideoCapture('ppg_detection_video.MOV')
@@ -12,6 +18,10 @@ cv2.namedWindow('Frame', cv2.WINDOW_NORMAL)
 p1, p2 = None, None
 state = 0
 
+def get_video_duration(capture):
+    fps = capture.get(cv2.CAP_PROP_FPS)
+    total_no_frames = capture.get(cv2.CAP_PROP_FRAME_COUNT)
+    return total_no_frames / fps
 
 def on_mouse(event, x, y, flags, userdata):
     global state, p1, p2
@@ -31,7 +41,7 @@ def on_mouse(event, x, y, flags, userdata):
         p1, p2 = None, None
         state = 0
 
-
+video_duration = get_video_duration(cap)
 cv2.setMouseCallback('Frame', on_mouse)
 
 average_array = []
@@ -56,21 +66,13 @@ while cap.isOpened():
     if key == 27:
         cap.release()
 
-
-
 y_axis = np.array(average_array)
 x_axis = np.array(range(count))
-
-peaks = find_peaks(y_axis, height=1, threshold=1, distance=1)
-height = peaks[1]['peak_heights']
-peak_pos = x_axis[peaks[0]]
-
-
+peaks = find_peaks_cwt(y_axis, np.ones(y_axis.shape)*2)-1
 plt.plot(x_axis, y_axis)
+plt.plot(peaks, y_axis[peaks], "x")
+bpm = (len(peaks)/video_duration)*60
+plt.title('Beat Per Minute ' + str(bpm), loc="center")
+plt.xlabel(str(datetime.datetime.now()), fontsize = 10)
 plt.figure()
 plt.show()
-
-# (numberofpeaks/sn)*60 = bpm
-
-
-
